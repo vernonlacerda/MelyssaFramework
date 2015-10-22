@@ -3,7 +3,7 @@ Framework para aplicações web PHP 5.4+
 
 ##Instalação:
 
-Após realizar o download do framework, descompacte-o em uma pasta no seu servidor, existem algumas configurações a serem realizadas antes de começar a usar o sistema.
+Para instalar o Melyssa Framework, você pode clonar este repositório ou baixar o arquivo compactado, para demonstração vamos presumir que você baixou o arquivo compactado. Após realizar o download do framework, descompacte-o em uma pasta no seu servidor, existem algumas configurações a serem realizadas antes de começar a usar o sistema.
 
 ##Configuração do framework:
 
