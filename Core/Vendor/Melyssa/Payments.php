@@ -8,34 +8,34 @@ use Models\PlanosModel;
 class Payments
 {
     private $pid;
-    
+
     private $paymentMethod;
-    
+
     private $paymentUrl;
-    
+
     private $clientId;
-    
+
     private $clientName;
-    
+
     private $clientMail;
-    
+
     private $clientAreaCode;
-    
+
     private $clientPhone;
-    
+
     private $productName;
-    
+
     private $productPrice;
-    
+
     private $productQuantity = 1;
-    
+
     private $redirectUrl;
-    
+
     public function __construct($pid, $redirectUrl, $paymentMethod = 'pagseguro')
     {
-        if(null === $pid){
+        if (null === $pid) {
             throw new Exception("Unable to create an empty request !");
-        }else{
+        } else {
             $this->pid = $pid;
             $this->paymentMethod = $paymentMethod;
             $this->redirectUrl = $redirectUrl;
@@ -45,7 +45,7 @@ class Payments
             $this->makeRequisition();
         }
     }
-    
+
     private function fetchProduct()
     {
         $productsModel = new PedidosModel();
@@ -59,7 +59,7 @@ class Payments
         $this->productPrice = str_replace(',', '.', $html->priceNumber($plano['preco']));
         return true;
     }
-    
+
     private function fetchClient()
     {
         $clientsModel = new ClientesModel();
@@ -71,7 +71,7 @@ class Payments
         $this->clientPhone = substr($client['telefone'], 2);
         return true;
     }
-    
+
     private function makeRequisition()
     {
         require_once(VENDOR_PATH . 'PagSeguro/PagSeguroLibrary.php');
@@ -83,13 +83,13 @@ class Payments
         $payment->setsender($this->clientName, $this->clientMail, $this->clientAreaCode, $this->clientPhone);
         $payment->setRedirectUrl($this->redirectUrl);
         $credentials = \PagSeguroConfig::getAccountCredentials();
-        if(defined('ALLOW_PAYMENT_REQUEST') AND ALLOW_PAYMENT_REQUEST === true){
+        if (defined('ALLOW_PAYMENT_REQUEST') and ALLOW_PAYMENT_REQUEST === true) {
             $this->paymentUrl = $payment->register($credentials);
-        }else{
+        } else {
             $this->paymentUrl = '/loja/checkout/pid/' . $this->pid . '/continue/ok/';
         }
     }
-    
+
     public function getPaymentUrl()
     {
         return $this->paymentUrl;

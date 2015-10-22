@@ -1002,7 +1002,6 @@ class PHPMailer
                     str_replace("\r\n", "\n", $header_dkim) . self::CRLF;
             }
             return true;
-
         } catch (phpmailerException $exc) {
             $this->setError($exc->getMessage());
             if ($this->exceptions) {
@@ -2065,7 +2064,6 @@ class PHPMailer
                 6 => $disposition,
                 7 => 0
             );
-
         } catch (phpmailerException $exc) {
             $this->setError($exc->getMessage());
             $this->edebug($exc->getMessage());

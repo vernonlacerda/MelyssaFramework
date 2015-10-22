@@ -8,18 +8,17 @@ use Melyssa\Logger\Log;
 
 /**
  * Classe de bootstrap do sistema:
- * 
+ *
  * Carrega as configurações e classes necessárias e executa as requisições.
  *
  * @package		Melyssa Framework
  * @category            Library
  * @author		Jhonathas Cavalcante
  * @link		http://melyssaframework.com/user_guide/
- * 
+ *
  */
 class Bootstrap
 {
-
     /**
      * Versão do Framework:
      * @var string
@@ -39,45 +38,45 @@ class Bootstrap
     private static function initialize()
     {
         // Autoloader do Framework:
-        
+
         self::registerAutoloader();
-        
+
         // Carregando o logger:
-        
+
         $log = Log::getInstance();
 
         // Setando encoding interno do Framework:
-        
+
         header('Content-type: text/html; charset=UTF-8');
-        
+
         self::verifyPhpVersion();
-        
+
         $log->debugMessage('Running Melyssa Framework in PHP Version '.PHP_VERSION);
-        
+
         self::switchEnvironment();
-        
+
         $log->debugMessage('The application environment is set to: '.ENVIRONMENT);
 
         // Setando a variável de inicialização pra garantir que não teremos mais que um dispatch na mesma requisição:
-        
+
         self::$initialized = true;
-        
+
         $log->debugMessage("System initialized");
     }
-    
+
     private static function registerAutoloader()
     {
         // Devemos registrar o autoloader do Framework aqui dentro pra nao precisar de arquivos externos:
-        spl_autoload_register(function($class){
+        spl_autoload_register(function ($class) {
             $filename = str_replace('\\', '/', $class);
-            foreach(array(VENDOR_PATH, APP_PATH) as $path){
-                if(file_exists($path . $filename . '.php')){
+            foreach (array(VENDOR_PATH, APP_PATH) as $path) {
+                if (file_exists($path . $filename . '.php')) {
                     require $path . $filename . '.php';
                 }
             }
         });
     }
-    
+
     private static function switchEnvironment()
     {
 
@@ -99,10 +98,10 @@ class Bootstrap
             }
         }
     }
-    
+
     private static function verifyPhpVersion()
     {
-        
+
         // Verificando a versão atual do PHP utilizada no servidor:
 
         if (version_compare(PHP_VERSION, '5.5.0', '<')) {
@@ -112,18 +111,18 @@ class Bootstrap
 
     /**
      * Start up da aplicação
-     * 
+     *
      * Esse método é chamado após o bootstrap ser concluído.<br>
      * Requisitamos e instanciamos o controller definido no bootstrap.<br>
      * E o router se encarrega de todo o trabalho daqui pra frente.<br>
      * Só voltamos ao método dispatch() depois que tudo estiver finalizado
-     * 
+     *
      */
     public static function dispatch()
     {
         if (self::$initialized === false) {
             self::initialize();
-            try{
+            try {
                 $log = Log::getInstance();
                 $router = new Router(new Request());
                 $controller = $router->getController();
@@ -132,12 +131,11 @@ class Bootstrap
                 call_user_func_array(array($controller, $action), array());
                 $controller->closePage();
                 $log->saveLog(true);
-            } catch (Exception $e){
+            } catch (Exception $e) {
                 $e->getError();
             }
         } else {
             die("System already initialized, second atempt ignored !");
         }
     }
-
 }

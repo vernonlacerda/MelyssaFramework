@@ -6,10 +6,8 @@ namespace Melyssa\Validation;
 
 class Unmatches
 {
-
     public static function isValid($baseValue, $value)
     {
         return ($baseValue !== $value);
     }
-
 }

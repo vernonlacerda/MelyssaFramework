@@ -23,8 +23,8 @@ class Uploader
         imagecopyresampled($newimage, $image, 0, 0, 0, 0, $this->photo['width'], $height, $x, $y);
         $folder = $this->photo['folder'];
         $name = $this->photo['name'];
-        
-        if(true === $waterMark){
+
+        if (true === $waterMark) {
             // Criando a imagem da logomarca:
             $logo = imagecreatefrompng($wMFile);
             $size = getimagesize($wMFile);
@@ -37,7 +37,7 @@ class Uploader
             // Copiando a logomarca pra dentro da imagem final:
             imagecopyresampled($newimage, $logo, $posXToLogo, $posYtoLogo, 0, 0, $logoW, $logoH, $logoW, $logoH);
         }
-        
+
         imagejpeg($newimage, "$folder/$name");
         imagedestroy($newimage);
         imagedestroy($image);

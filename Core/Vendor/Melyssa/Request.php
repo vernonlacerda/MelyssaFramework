@@ -7,18 +7,17 @@ use Melyssa\Logger\Log;
 
 /**
  * Classe de requisições do sistema:
- * 
+ *
  * Lê a requisição atual, define segmentos, tipo de requisição e afins.
  *
  * @package		Melyssa Framework
  * @category            Library
  * @author		Jhonathas Cavalcante
  * @link		http://melyssaframework.com/user_guide/
- * 
+ *
  */
 class Request
 {
-
     /**
      * Instância singleton da classe:
      * @static
@@ -82,40 +81,40 @@ class Request
     private function setRequestMethod()
     {
         // Verificando se temos uma requisição enviada via ajax:
-        if($this->isAjax()){
+        if ($this->isAjax()) {
             $this->requestMethod = 'AJAX';
-        }else{
+        } else {
             $this->requestMethod = $_SERVER['REQUEST_METHOD'];
         }
         $this->logger->debugMessage("Request method set to: " . $this->requestMethod);
     }
-    
+
     // Verificando se temos uma requisição enviada via ajax:
     private function isAjax()
     {
-        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) AND strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == "xmlhttprequest"){
+        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == "xmlhttprequest") {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     /**
      * Recuperando o método utilizado na requisição atual
-     * 
+     *
      * @return string POST ou GET
      */
     public function getRequestMethod()
     {
         return $this->requestMethod;
     }
-    
+
     private function setReferrer()
     {
         $this->referrer = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : null;
         $this->logger->debugMessage("HTTP Referrer set to: " . $this->referrer);
     }
-    
+
     public function getReferrer()
     {
         return $this->referrer;
@@ -127,7 +126,7 @@ class Request
         $this->uri = $uri;
         $this->logger->debugMessage("Uri set to: " . $this->uri);
     }
-    
+
     public function getUri()
     {
         return $this->uri;
@@ -141,23 +140,23 @@ class Request
     private function setUrlParams($segments = [])
     {
         /** Retirando o Controller e a Action do array recebido **/
-        
+
         unset($segments[0], $segments[1]);
-        
+
         /** O último índice do array é vazio? ... Então deleta **/
-        
+
         if (end($segments) == null) {
             array_pop($segments);
         }
-        
+
         /** Ainda temos alguma coisa dentro do array? ... Continuamos **/
-        
+
         if ($segments != null && count($segments) > 1) {
             $i = 0;
             foreach ($segments as $vals) {
-                
+
                 /** Se o índice for ímpar então temos uma chave, caso contrário, um valor. **/
-                
+
                 if ($i % 2 == 0) {
                     $key[] = $vals;
                 } else {
@@ -165,41 +164,41 @@ class Request
                 }
                 $i++;
             }
-            
+
             /** Se índices e chaves não contiverem o mesmo número de valores, retiramos o último índice. **/
-            
+
             if (count($key) !== count($value)) {
                 array_pop($key);
             }
-            
+
             /** Criamos o array final de parâmetros e enviamos para a propriedade da classe. **/
-            
+
             $arrayFinal = array_combine($key, $value);
             $this->urlParams = $arrayFinal;
         }
     }
-    
+
     public function setPostValues()
     {
         $hydrator = new Input();
         $this->postValues = $hydrator->getPost();
         return true;
     }
-    
+
     public function hasPost($name)
     {
         $isset = true;
-        if(is_array($name)){
-            foreach($name as $val){
+        if (is_array($name)) {
+            foreach ($name as $val) {
                 $isset = isset($this->postValues[$val]);
             }
-        }else{
+        } else {
             $isset = isset($this->postValues[$name]);
         }
-        
+
         return $isset;
     }
-    
+
     public function getUrlParams()
     {
         return $this->urlParams;
@@ -217,9 +216,9 @@ class Request
 
     public function getPost($name = null)
     {
-        if(null === $name){
+        if (null === $name) {
             return $this->postValues;
-        }else{
+        } else {
             return $this->postValues[$name];
         }
     }
@@ -229,5 +228,4 @@ class Request
     {
         return self::$instance;
     }
-
 }

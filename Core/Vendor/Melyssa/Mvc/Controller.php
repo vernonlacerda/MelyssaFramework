@@ -12,7 +12,6 @@ use Melyssa\UserAgent;
 
 class Controller
 {
-
     // Instancia da própria classe
     private static $instance;
     protected $loader;
@@ -46,24 +45,24 @@ class Controller
 
     /**
      * Método responsável por carregar uma view.
-     * 
+     *
      * @access protected
      * @param string $file O arquivo de view a ser carregado
      * @param array  $data Um array de dados a serem enviados para a view
      * */
     protected function view($file, array $data = null)
     {
-        if ($data != null AND is_array($data)) {
+        if ($data != null and is_array($data)) {
             extract($data);
         }
         // Retirando a parte do namespace:
         $class = substr(get_called_class(), strpos(get_called_class(), '\\') + 1);
-        if('404' === $file OR 'Mvc\Controller' === $class){
+        if ('404' === $file or 'Mvc\Controller' === $class) {
             $folder = '';
-        }else{
-            if(!strpos($file, '/')){
+        } else {
+            if (!strpos($file, '/')) {
                 $folder = $class . '/';
-            }else{
+            } else {
                 $folder = '';
             }
         }
@@ -75,7 +74,7 @@ class Controller
      * Método responsável por inicializar as páginas do sistema.<br>
      * É útil para se trabalhar com templates, exemplo, carregar um cabeçalho<br>
      * ou para inicializar funcionalidades do sistema.
-     * 
+     *
      * @access public
      * @todo implementar dentro dos controllers da aplicação:
      */
@@ -100,25 +99,26 @@ class Controller
     {
         return $this->tradutor->getString($string);
     }
-    
-    public function setFlash($message = 'This is only a flash message !'){
+
+    public function setFlash($message = 'This is only a flash message !')
+    {
         $session = \Melyssa\Session::getInstance();
         $session->makeSession('flash_system', $message);
     }
-    
-    public function getFlash($container = ''){
+
+    public function getFlash($container = '')
+    {
         $s = \Melyssa\Session::getInstance();
-        if($s->checkSession('flash_system')){
+        if ($s->checkSession('flash_system')) {
             $flash = $s->getSession('flash_system');
             $s->destroySession('flash_system');
-            if($container === ''){
+            if ($container === '') {
                 return $flash;
             } else {
                 return sprintf($container, $flash);
             }
-        } else{
+        } else {
             return '';
         }
     }
-
 }

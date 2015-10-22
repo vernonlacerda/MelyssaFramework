@@ -7,7 +7,6 @@ use Melyssa\Tradutor;
 
 class ControllerException extends Exception
 {
-
     public function __construct($message, $code = 0, Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);
@@ -23,5 +22,4 @@ class ControllerException extends Exception
         $error .= $this->tradutor->getString('at line') . ': <strong>' . $this->line . '</strong>.<br><br>';
         die($error);
     }
-
 }

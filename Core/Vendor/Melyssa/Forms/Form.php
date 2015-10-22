@@ -7,7 +7,6 @@ use Melyssa\Exception;
 
 class Form
 {
-
     private $inputs = array();
     private $elements = array();
     private $errors = array();
@@ -41,15 +40,15 @@ class Form
             $this->configs = $file['form'];
         }
     }
-    
+
     private function replaceConfigs($arrayToReplace)
     {
-        if(count($arrayToReplace) > 0){
-            foreach($arrayToReplace as $key => $val){
+        if (count($arrayToReplace) > 0) {
+            foreach ($arrayToReplace as $key => $val) {
                 $this->configs['attributes'][$key] = $val;
             }
         }
-        
+
         return true;
     }
 
@@ -78,7 +77,7 @@ class Form
     {
         if ($this->openTag === null) {
             $this->openTag = '<form';
-            if (isset($this->configs['attributes']) AND ! empty($this->configs['attributes'])) {
+            if (isset($this->configs['attributes']) and ! empty($this->configs['attributes'])) {
                 foreach ($this->configs['attributes'] as $attribute => $value) {
                     $this->openTag .= ' ' . $attribute . '="' . $value . '"';
                 }
@@ -98,7 +97,7 @@ class Form
 
     public function getForm()
     {
-        if($this->template !== null){
+        if ($this->template !== null) {
             // Vamos brincar com a troca de variaveis no template do formulario:
             $form = $this->elements;
             $form['OpenForm'] = $this->openTag;
@@ -135,5 +134,4 @@ class Form
             $e->getError();
         }
     }
-
 }

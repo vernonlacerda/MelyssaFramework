@@ -3,7 +3,7 @@ namespace Melyssa;
 
 /**
  * Classe de entrada de dados:
- * 
+ *
  * Carrega e sanitiza os dados enviados pelo usuário através de qualquer método.
  *
  * @package		Melyssa Framework
@@ -11,27 +11,28 @@ namespace Melyssa;
  * @category            Library
  * @author		Jhonathas Cavalcante
  * @link		http://melyssaframework.com/user_guide/
- * 
+ *
  */
 class Input
 {
-    
     /**
      * Dados recebido através do método POST:
      * @var string
      */
     private $postValues = array();
-    
+
     /**
      * Contrutor da classe, guarda os dados recebidos dentro da variável $postValues.
-     * 
+     *
      * @access public
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->fetchPost();
     }
-    
-    public function fetchPost(){
+
+    public function fetchPost()
+    {
         foreach ($_POST as $name => $value) {
             if (!is_array($value)) {
                 $this->postValues[$name] = strip_tags(trim($value));
@@ -42,21 +43,22 @@ class Input
             }
         }
     }
-    
-    public function hasPost($name){
+
+    public function hasPost($name)
+    {
         return isset($this->postValues[$name]);
     }
-    
-    public function getPost($name = null){
-        if(null === $name){
+
+    public function getPost($name = null)
+    {
+        if (null === $name) {
             return $this->postValues;
-        }else{
-            if($this->hasPost($name)){
+        } else {
+            if ($this->hasPost($name)) {
                 return $this->postValues[$name];
-            }else{
+            } else {
                 return null;
             }
         }
     }
-    
 }

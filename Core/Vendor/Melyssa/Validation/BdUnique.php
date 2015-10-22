@@ -6,7 +6,6 @@ use Melyssa\Model;
 
 class BdUnique
 {
-
     public static function isValid($base, $value)
     {
         if (strpos($base, '.')) {
@@ -23,5 +22,4 @@ class BdUnique
             return false;
         }
     }
-
 }

@@ -6,18 +6,17 @@ use Melyssa\Database\Conector;
 
 /**
  * Model padrão do sistema:
- * 
+ *
  * Responsável por transações e persistência de dados.
  *
  * @package		Melyssa Framework
  * @category            Library
  * @author		Jhonathas Cavalcante
  * @link		http://melyssaframework.com/user_guide/model
- * 
+ *
  */
 class Model
 {
-
     /**
      * Instância do conector de banco de dados:
      * @var object
@@ -47,7 +46,7 @@ class Model
         $indices = implode(", ", array_keys($dados));
         $valores = "'" . implode("', '", array_values($dados)) . "'";
         $q = $this->db->query("INSERT INTO `{$this->tableName}` ({$indices}) VALUES ({$valores})");
-        
+
         $this->lastInsertId = $this->db->lastInsertId();
     }
 
@@ -66,23 +65,23 @@ class Model
 
         return $f;
     }
-    
+
     public function getRow($where = null, $order = null, $limit = null, $offset = null)
     {
         $row = $this->Read($where, $order, $limit, $offset);
-        if(count($row) != 0){
+        if (count($row) != 0) {
             return $row[0];
-        }else{
+        } else {
             false;
         }
     }
-    
+
     public function getById($id, $idColumn = 'id')
     {
         $resultRow = $this->Read("{$idColumn} = '{$id}'");
-        if($this->countResults() > 0){
+        if ($this->countResults() > 0) {
             return $resultRow[0];
-        }else{
+        } else {
             return array();
         }
     }
@@ -110,10 +109,9 @@ class Model
             return 'Sucesso';
         }
     }
-    
+
     public function beforeSave()
     {
         // This function must be implemented inside the child classes.
     }
-
 }

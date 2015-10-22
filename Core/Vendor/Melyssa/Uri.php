@@ -6,18 +6,17 @@ use Melyssa\Request;
 
 /**
  * Classe de uri do sistema:
- * 
+ *
  * Oferece opções para redirecionamento, resgate de parâmetros e segmentos, etc.
  *
  * @package		Melyssa Framework
  * @category            Library
  * @author		Jhonathas Cavalcante
  * @link		http://melyssaframework.com/user_guide/
- * 
+ *
  */
 class Uri
 {
-
     private $segments = array();
     private $request;
     private $actualController;
@@ -37,7 +36,7 @@ class Uri
             return $this->segments;
         } else {
             if (!isset($this->segments[$param])) {
-                return FALSE;
+                return false;
             } else {
                 return $this->segments[$param];
             }
@@ -56,7 +55,7 @@ class Uri
     public function goControllerAction($controller, $action)
     {
         $route = '/' . $controller . '/' . $action . '/';
-        if ($this->actualController === $controller AND $this->actualAction === $action) {
+        if ($this->actualController === $controller and $this->actualAction === $action) {
             return;
         }
         $this->redirect($route);
@@ -98,10 +97,9 @@ class Uri
             return false;
         }
     }
-    
+
     public function getCurrentUri()
     {
         return $this->request->getUri();
     }
-
 }
