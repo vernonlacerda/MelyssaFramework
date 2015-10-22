@@ -8,7 +8,7 @@ use Melyssa\Logger\Log;
 
 /**
  * Classe de roteamento do sistema:
- * 
+ *
  * Realiza o bootstrap, define controller e action, filtra parâmetros de url<br>
  * e inicializa as páginas da aplicação
  *
@@ -17,11 +17,10 @@ use Melyssa\Logger\Log;
  * @category            Library
  * @author		Jhonathas Cavalcante
  * @link		http://melyssaframework.com/user_guide/routerlibrary.php
- * 
+ *
  */
 class Router
 {
-
     private $routes;
     private $class;
     private $method;
@@ -48,43 +47,43 @@ class Router
 
     /**
      * Define Routes
-     * 
+     *
      * Método responsável por carregar as rotas salvas nas configurações.
-     * 
+     *
      * @access private
      */
     private function defineRoutes()
     {
         // Inicializamos a vari�vel $routes pra evitar problemas futuros;
-        
+
         $routes = array();
-        
+
         // Procuramos o arquivo de rotas nas pastas poss�veis:
-        
-        if (defined('ENVIRONMENT') AND is_file(APP_PATH . '/Configs/' . ENVIRONMENT . '/Routes.php')) {
+
+        if (defined('ENVIRONMENT') and is_file(APP_PATH . '/Configs/' . ENVIRONMENT . '/Routes.php')) {
             include(APP_PATH . '/Configs/' . ENVIRONMENT . '/Routes.php');
         } elseif (is_file('Application/Configs/Routes.php')) {
             include(APP_PATH . '/Configs/Routes.php');
         } else {
             throw new Exception("No routes file present, aborting...");
         }
-        
+
         // Definimos as rotas a partir das rotas definidas pelo usu�rio:
-        
+
         $this->routes = $routes;
         $this->log->debugMessage("Routes file loaded");
     }
 
     private function setController()
     {
-        if ($this->request->getSegment(0) == null OR $this->request->getSegment(0) == '') {
+        if ($this->request->getSegment(0) == null or $this->request->getSegment(0) == '') {
             $this->setDefaultController();
         } else {
             $this->controller = ucfirst($this->request->getSegment(0));
             $this->log->debugMessage("Controller class set to: " . $this->controller);
         }
         // Verificando se o controller chamado na url existe antes de definir a variável:
-        if (class_exists('Controllers\\' . $this->controller) AND isset($this->routes[$this->controller])) {
+        if (class_exists('Controllers\\' . $this->controller) and isset($this->routes[$this->controller])) {
             // Namespace full qualified:
             $namespace = 'Controllers\\' . $this->controller;
             $this->class = new $namespace();
@@ -113,7 +112,7 @@ class Router
 
     private function setAction()
     {
-        if ($this->request->getSegment(1) == null OR $this->request->getSegment(1) == '') {
+        if ($this->request->getSegment(1) == null or $this->request->getSegment(1) == '') {
             $this->setDefaultAction();
         } else {
             $this->action = $this->request->getSegment(1);
@@ -126,7 +125,7 @@ class Router
             // o método existe, setamos as configurações da action atual:
             //$this->actionConfigs = $this->controllerConfigs['callables'][$this->action];
             //Verificando se o metodo pode ser chamado diretamente pela url ou é uma função fechada:
-            if (array_key_exists($this->action, $this->controllerConfigs['callables']) AND
+            if (array_key_exists($this->action, $this->controllerConfigs['callables']) and
                     in_array($this->request->getRequestMethod(), $this->controllerConfigs['callables'][$this->action]['methods'])) {
                 $this->method = $actionRealName;
                 $this->actionConfigs = $this->controllerConfigs['callables'][$this->action];
@@ -155,33 +154,33 @@ class Router
     {
         // Método de validação dos parâmetros, apenas params registrados nas rotas e compatíveis com
         // os valores esperados serão indexados no array de parâmetros da requisição.
-        
+
         $configs = (isset($this->actionConfigs['params'])) ? $this->actionConfigs['params'] : array();
         $params = $this->request->getUrlParams();
-        
-        if(!empty($params) AND !empty($configs)){
+
+        if (!empty($params) and !empty($configs)) {
             foreach ($params as $key => $value) {
-                if (array_key_exists($key, $configs) AND preg_match($configs[$key], $value)) {
+                if (array_key_exists($key, $configs) and preg_match($configs[$key], $value)) {
                     // Se o parâmetro não foi registrado na rota, então deletamos:
                     break;
-                }else{
+                } else {
                     unset($params[$key]);
                 }
             }
-        }elseif(!empty($params) AND empty($configs)){
+        } elseif (!empty($params) and empty($configs)) {
             // Temos o array de configurações vazio, então não é permitido nenhum parâmetro na url:
             $params = array();
         }
-        
+
         // Parâmetros basicamente filtrados, agora, jogamos eles de volta para a requisição:
         $this->request->urlParams = $params;
     }
 
     /**
      * Get Controller
-     * 
+     *
      * Retorna a instância do controller que foi definido pelo bootstrap
-     * 
+     *
      * @access public
      */
     public function getController()
@@ -191,14 +190,13 @@ class Router
 
     /**
      * Get Action
-     * 
+     *
      * Retorna o método requisitado pela url e verificado pelo Router:
-     * 
+     *
      * @access public
      */
     public function getAction()
     {
         return $this->method;
     }
-
 }

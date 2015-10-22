@@ -7,7 +7,7 @@ use Melyssa\Tradutor;
 
 /**
  * Classe de carregamento de arquivos do sistema:
- * 
+ *
  * Responsável por procurar e carregar arquivos, views e bibliotecas.
  *
  * @package		Melyssa Framework
@@ -15,20 +15,19 @@ use Melyssa\Tradutor;
  * @category            Library
  * @author		Jhonathas Cavalcante
  * @link		http://melyssaframework.com/user_guide/loader.php
- * 
+ *
  */
 class Loader
 {
-    
     /**
      * Instância da classe de internacionalização.
      * @var object
      */
     private $tradutor;
-    
+
     /**
      * Contrutor da classe.
-     * 
+     *
      * @access public
      */
     public function __construct()
@@ -38,7 +37,7 @@ class Loader
 
     /**
      * Método responsável por carregar arquivos
-     * 
+     *
      * @access public
      * @param string $filename O arquivo a ser carregado
      * @throws Melyssa\Exception se o arquivo não for encontrado
@@ -60,5 +59,4 @@ class Loader
     {
         return include($this->getFile($filepath));
     }
-
 }

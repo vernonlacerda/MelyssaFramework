@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 
-    <title>Melyssa Framework</title>
+    <title>Erro 404</title>
 
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato:200,300">
     <style type="text/css">
@@ -57,10 +57,8 @@
 
       <main class="main-container">
           <div class="container">
-              <h1><?php echo $this->tradutor->getString('Welcome to') ?> Melyssa Framework</h1>
-              <a href="/doc" target="_blank" class="btn"><?php echo $this->tradutor->getString('Documentation') ?></a>
-              <a href="https://github.com/jhouie/MelyssaFramework" target="_blank" class="btn">Github</a>
-              <p><small>Currently v0.0.1</small></p>
+              <h1>Erro 404</h1>
+              <a href="/" class="btn">&laquo; <?php echo $this->tradutor->getString('Go back') ?></a>
           </div>
       </main>
 

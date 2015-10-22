@@ -1,12 +1,13 @@
 <?php
-    namespace Controllers;
-    
-    use Melyssa\Mvc\Controller;
-    
-    class Welcome extends Controller
+
+namespace Controllers;
+
+use Melyssa\Mvc\Controller;
+
+class Welcome extends Controller
+{
+    public function indexAction()
     {
-        public function indexAction()
-        {
-            $this->view("Index");
-        }
+        $this->view("Index");
     }
+}

@@ -6,7 +6,6 @@ use Melyssa\Database\Conector;
 
 class Model
 {
-
     protected $db;
     public $_tabela;
     public $tableName;
@@ -21,7 +20,7 @@ class Model
         $indices = implode(", ", array_keys($dados));
         $valores = "'" . implode("', '", array_values($dados)) . "'";
         $q = $this->db->query("INSERT INTO `{$this->_tabela}` ({$indices}) VALUES ({$valores})");
-        return TRUE;
+        return true;
     }
 
     public function Read($where = null, $order = null, $limit = null, $offset = null)
@@ -71,5 +70,4 @@ class Model
             return 'Sucesso';
         }
     }
-
 }

@@ -4,28 +4,27 @@ namespace Melyssa\Database;
 use Melyssa\Singleton;
 use Melyssa\Loader;
 
-class Conector implements Singleton{
-    
+class Conector implements Singleton
+{
     private $dsn;
-
     private $username;
-
     private $password;
-
     private $initConfigs = array();
-
     private static $instance = null;
-    
-    public function __construct() {
+
+    public function __construct()
+    {
         self::$instance = new \PDO('dsn', 'username', 'password');
         $logger =& \Melyssa\Logger\Log::getInstance();
         $logger->debugMessage("Database class initialized!");
     }
-    
-    public static function &getInstance(){
-        if( !is_object(self::$instance)){
+
+    public static function &getInstance()
+    {
+        if (!is_object(self::$instance)) {
             new self;
         }
+
         return self::$instance;
     }
 

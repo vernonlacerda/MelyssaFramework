@@ -6,7 +6,6 @@ use Melyssa\Session;
 
 class SessionHydrator extends Session
 {
-
     private $data;
     private $prefix = null;
 
@@ -20,13 +19,12 @@ class SessionHydrator extends Session
 
     private function hydrateValues()
     {
-        foreach($this->data as $key => $value){
-            if($this->prefix !== null){
+        foreach ($this->data as $key => $value) {
+            if ($this->prefix !== null) {
                 $this->makeSession($this->prefix . $key, $value);
-            }else{
+            } else {
                 $this->makeSession($key, $value);
             }
         }
     }
-
 }

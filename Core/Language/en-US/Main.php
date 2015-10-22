@@ -1,2 +1,2 @@
 <?php
-    $language = array();
+$language = array();

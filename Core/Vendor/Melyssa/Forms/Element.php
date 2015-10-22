@@ -6,7 +6,6 @@ use Melyssa\Session;
 
 abstract class Element
 {
-
     public $displayErrors = false;
     public $errorContainer = null;
     protected $type = '';
@@ -39,7 +38,7 @@ abstract class Element
         $sessionName = $this->formName .':'. $this->attributes['name'];
         if ($this->sessionHandler->checkSession($sessionName)) {
             $this->attributes['value'] = $this->sessionHandler->getSession($sessionName);
-            if(false === $this->keepValues){
+            if (false === $this->keepValues) {
                 $this->sessionHandler->destroySession($sessionName);
             }
         }
@@ -54,7 +53,7 @@ abstract class Element
             if (isset($this->attributes['error-container'])) {
                 $this->error = sprintf($this->attributes['error-container'], $this->error);
                 unset($this->attributes['error-container']);
-            }elseif(null !== $this->errorContainer){
+            } elseif (null !== $this->errorContainer) {
                 $this->error = sprintf($this->errorContainer, $this->error);
             }
         }
@@ -78,8 +77,8 @@ abstract class Element
     
     private function cleanUpAttributes()
     {
-        foreach(array('error-container', 'type') as $attribute){
-            if(isset($this->attributes[$attribute])){
+        foreach (array('error-container', 'type') as $attribute) {
+            if (isset($this->attributes[$attribute])) {
                 unset($this->attributes[$attribute]);
             }
         }
@@ -96,10 +95,10 @@ abstract class Element
 
     public function parseLabel()
     {
-        if ($this->hasLabel === TRUE AND $this->hasLabelAttributes === TRUE) {
+        if ($this->hasLabel === true and $this->hasLabelAttributes === true) {
             $label = sprintf('<label%s>%s</label>', $this->parseAttributes($this->labelAttributes), $this->labelText);
             return $label;
-        } elseif ($this->hasLabel === TRUE) {
+        } elseif ($this->hasLabel === true) {
             return '<label>' . $this->labelText . '</label>';
         } else {
             return '';
@@ -113,7 +112,7 @@ abstract class Element
 
     private function parseErrors()
     {
-        if(true === $this->displayErrors AND $this->error !== null){
+        if (true === $this->displayErrors and $this->error !== null) {
             return $this->error;
         }
         return '';
@@ -125,8 +124,8 @@ abstract class Element
         return $element;
     }
     
-    public function getErrors(){
+    public function getErrors()
+    {
         return $this->error;
     }
-
 }

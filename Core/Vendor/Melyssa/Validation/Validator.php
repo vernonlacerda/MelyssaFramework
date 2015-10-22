@@ -21,7 +21,6 @@ use Melyssa\Session;
  */
 class Validator
 {
-
     private $session;
     private $loader;
     private $hydrator;
@@ -89,7 +88,7 @@ class Validator
             // Explodindo valores das regras de validação:
             $rules = explode('|', $rules);
             // Se o valor estiver vazio mas não for obrigatório:
-            if ($value == '' AND ! in_array('Required', $rules)) {
+            if ($value == '' and ! in_array('Required', $rules)) {
                 $rules = array();
             } else {
                 foreach ($rules as $rule) {
@@ -126,7 +125,7 @@ class Validator
 
     private function initialize()
     {
-        if(empty($this->fields)){
+        if (empty($this->fields)) {
             throw new Exception("There is no fields to validate");
         }
         // Iniciando rotina de validação:
@@ -155,7 +154,7 @@ class Validator
 
     private function saveErrors()
     {
-        foreach ($this->errors as $campo => $resultado){
+        foreach ($this->errors as $campo => $resultado) {
             $this->session->makeSession($this->formName . ':' . $campo . '-error', $resultado);
         }
     }
@@ -168,5 +167,4 @@ class Validator
             $e->getError();
         }
     }
-
 }

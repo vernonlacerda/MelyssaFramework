@@ -12,11 +12,10 @@ use Melyssa\Tradutor;
  * @category            Library
  * @author		Jhonathas Cavalcante
  * @link		http://melyssaframework.com/user_guide/routerlibrary.php
- * 
+ *
  */
 class Exception extends \Exception
 {
-
     private $tradutor;
 
     public function __construct($message, $code = 0, Exception $previous = null)
@@ -34,5 +33,4 @@ class Exception extends \Exception
         $error .= $this->tradutor->getString('at line') . ': <strong>' . $this->line . '</strong>.<br><br>';
         die($error);
     }
-
 }

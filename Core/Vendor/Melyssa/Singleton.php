@@ -9,9 +9,10 @@ namespace Melyssa;
  * @category            Interface
  * @author		Jhonathas Cavalcante
  * @link		http://melyssaframework.com/user_guide/singleton.php
- * 
+ *
  */
 
-interface Singleton{
+interface Singleton
+{
     public static function &getInstance();
 }
