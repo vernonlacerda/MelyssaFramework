@@ -51,12 +51,31 @@
         .btn:focus {
             background-color: #fff;
         }
+
+        @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        @-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+        .fade-in {
+          opacity:0;
+          -webkit-animation:fadeIn ease-in 1;
+          -moz-animation:fadeIn ease-in 1;
+          animation:fadeIn ease-in 1;
+
+          -webkit-animation-fill-mode: forwards;
+          -moz-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+
+          -webkit-animation-duration: 1s;
+          -moz-animation-duration: 1s;
+          animation-duration: 1s;
+        }
     </style>
   </head>
   <body>
 
       <main class="main-container">
-          <div class="container">
+          <div class="container fade-in">
               <h1><?php echo $this->tradutor->getString('Welcome to') ?> Melyssa Framework</h1>
               <a href="/doc" target="_blank" class="btn"><?php echo $this->tradutor->getString('Documentation') ?></a>
               <a href="https://github.com/jhouie/MelyssaFramework" target="_blank" class="btn">Github</a>
