@@ -24,9 +24,6 @@ define('CORE_PATH', BASE_PATH . 'Core/');
 // Qual a pasta de armazenamento do Core do Sistema (onde fica o núcleo do framework)?
 define('VENDOR_PATH', CORE_PATH . 'Vendor/');
 
-// Qual a pasta de armazenamento da sua aplicação (onde ficam os controllers, models, views e etc.)?
-define('APP_PATH', 'Application/');
-
 // Ambiente da aplicação (Development, Testing e Production)
 define('ENVIRONMENT', 'Development');
 
