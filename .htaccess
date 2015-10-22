@@ -1,0 +1,8 @@
+RewriteEngine on
+
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteCond %{SCRIPT_FILENAME} !-d
+
+RewriteCond $1 !^(Webfiles|favicon\.ico)
+
+RewriteRule ^(.*)$ /index.php?url=$1
